@@ -1,0 +1,10 @@
+--- runescape-launcher-2.2.4/usr/bin/runescape-launcher.library_path.patch	2017-08-07 23:09:00.312970650 +0300
++++ runescape-launcher-2.2.4/usr/bin/runescape-launcher	2017-08-07 23:07:54.108427631 +0300
+@@ -7,6 +7,7 @@
+     shift
+ fi
+ 
++export LD_LIBRARY_PATH="$LD_LIBRARY_PATH${LD_LIBRARY_PATH:+:}/opt/runescape-nxt-libs/"
+ export PULSE_PROP_OVERRIDE="application.name='RuneScape' application.icon_name='runescape' media.role='game'"
+ export SDL_VIDEO_X11_WMCLASS="RuneScape"
+ export MESA_GL_VERSION_OVERRIDE=3.0
