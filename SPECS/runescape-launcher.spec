@@ -1,10 +1,11 @@
 %define debug_package %{nil}
 %define curlversion 7.53.1
 %define glewversion 1.10.0
+%define libpngversion 1.2.54
 %define privatelibdir /opt/runescape-nxt-libs
 Name:           runescape-launcher
 Version:        2.2.4
-Release:        1.1
+Release:        1.8%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
 Summary:        RuneScape Game Client
@@ -14,6 +15,7 @@ Source0:        https://content.runescape.com/downloads/ubuntu/pool/non-free/r/r
 # Libcurl needs ssl support. We can't just build older rpms of the libraries.
 Source1:        https://curl.haxx.se/download/curl-%{curlversion}.tar.gz
 Source2:        http://downloads.sourceforge.net/glew/glew-%{glewversion}.tgz
+Source3:        https://downloads.sourceforge.net/project/libpng/libpng12/older-releases/%{libpngversion}/libpng-%{libpngversion}.tar.gz
 
 # Patch the client to use also the private libraries
 Patch0:         0001-library_path.patch
@@ -31,6 +33,8 @@ BuildRequires:  libX11-devel libXext-devel libXi-devel libXmu-devel
 BuildRequires:  mesa-libGL-devel libGLU-devel
 # libcurl
 BuildRequires:  openssl-devel
+# libpng
+BuildRequires:  zlib
 
 # This needs to be explicitely listed to solve rpm installation dependency
 Provides:       libcurl.so.4(CURL_OPENSSL_3)(64bit) = %{curlversion}
@@ -57,6 +61,9 @@ tar xvf %{SOURCE1}
 cd %{_builddir}
 tar xvf %{SOURCE2}
 
+cd %{_builddir}
+tar xvf %{SOURCE3}
+
 %build
 cd %{_builddir}/curl-%{curlversion}
 ./configure --prefix=%{privatelibdir} --libdir=%{privatelibdir} --with-ssl
@@ -64,6 +71,10 @@ make
 
 cd %{_builddir}/glew-%{glewversion}
 make LIBDIR=%{privatelibdir}
+
+cd %{_builddir}/libpng-%{libpngversion}
+./configure --prefix=%{privatelibdir} --libdir=%{privatelibdir}
+make
 
 %install
 install -Dm 0644 runescape-launcher-%{version}/usr/share/doc/runescape-launcher/copyright %{buildroot}%{_docdir}/runescape-launcher/copyright
@@ -80,6 +91,7 @@ install -Dm 0755 runescape-launcher-%{version}/usr/bin/runescape-launcher %{buil
 mkdir -p $RPM_BUILD_ROOT%{privatelibdir}/
 %__cp %{_builddir}/curl-%{curlversion}/lib/.libs/libcurl.so.4.4.0 $RPM_BUILD_ROOT%{privatelibdir}/
 %__cp %{_builddir}/glew-%{glewversion}/lib/libGLEW.so.1.10.0 $RPM_BUILD_ROOT%{privatelibdir}/
+%__cp %{_builddir}/libpng-%{libpngversion}/.libs/libpng12.so.0.54.0 $RPM_BUILD_ROOT%{privatelibdir}/
 chmod 0755 $RPM_BUILD_ROOT%{privatelibdir}/*.so*
 
 %post
@@ -87,6 +99,7 @@ if [ $1 -eq 1 ]; then
     touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
     ln -s %{privatelibdir}/libcurl.so.4.4.0 %{privatelibdir}/libcurl.so.4
     ln -s %{privatelibdir}/libGLEW.so.1.10.0 %{privatelibdir}/libGLEW.so.1.10
+    ln -s %{privatelibdir}/libpng12.so.0.54.0 %{privatelibdir}/libpng12.so.0
 fi
 
 %postun
@@ -95,6 +108,7 @@ if [ $1 -eq 0 ]; then
     gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
     rm -f %{privatelibdir}/libcurl.so.4
     rm -f %{privatelibdir}/libGLEW.so.1.10
+    rm -f %{privatelibdir}/libpng12.so.0
 fi
 
 %posttrans
@@ -117,6 +131,21 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{privatelibdir}/*
 
 %changelog
+* Thu Mar 01 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.8
+- Runescape binary changed by Jagex 2018-02-16
+- Added libpng12
+* Sat Dec 30 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.7
+- Runescape binary changed by Jagex 2017-11-24
+* Sat Nov 25 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.6
+- Runescape binary changed by Jagex 2017-11-14
+* Sat Oct 28 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.5
+- Runescape binary changed by Jagex 2017-10-13
+* Tue Oct 03 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.4
+- Runescape binary changed by Jagex 2017-09-19
+* Sat Sep 23 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.3
+- Runescape binary changed by Jagex 2017-09-12
+* Sat Sep 16 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.2
+- Runescape binary changed by Jagex 2017-09-01 for unknown reasons
 * Wed Aug 09 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.1
 - Removed webkitgtk, added gtk2
 * Tue Aug 08 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.0
