@@ -5,7 +5,7 @@
 %define privatelibdir /opt/runescape-nxt-libs
 Name:           runescape-launcher
 Version:        2.2.4
-Release:        1.8%{?dist}
+Release:        1.9%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
 Summary:        RuneScape Game Client
@@ -131,6 +131,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{privatelibdir}/*
 
 %changelog
+* Mon Apr 23 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.9
+- Runescape binary changed by Jagex 2018-04-19
 * Thu Mar 01 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.8
 - Runescape binary changed by Jagex 2018-02-16
 - Added libpng12
