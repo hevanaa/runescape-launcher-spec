@@ -1,6 +1,6 @@
---- runescape-launcher-2.2.4/usr/bin/runescape-launcher.library_path.patch	2017-08-07 23:09:00.312970650 +0300
-+++ runescape-launcher-2.2.4/usr/bin/runescape-launcher	2017-08-07 23:07:54.108427631 +0300
-@@ -7,6 +7,7 @@
+--- runescape-launcher-2.2.4/usr/bin/runescape-launcher	2019-02-06 00:29:05.405675193 +0200
++++ runescape-launcher-2.2.4/usr/bin/runescape-launcher_patched	2019-02-06 00:28:17.515913219 +0200
+@@ -7,8 +7,24 @@
      shift
  fi
  
@@ -8,3 +8,21 @@
  export PULSE_PROP_OVERRIDE="application.name='RuneScape' application.icon_name='runescape' media.role='game'"
  export SDL_VIDEO_X11_WMCLASS="RuneScape"
  export MESA_GL_VERSION_OVERRIDE=3.0
+ unset XMODIFIERS
+-/usr/share/games/runescape-launcher/runescape --configURI $configURI $@
++/usr/share/games/runescape-launcher/runescape --configURI $configURI "$@" &
++
++if [ -z "${SHOW_LAUNCHER}" ]; then
++    # The game won't be up instantly. So wait until we see 2 visible RuneScape windows.
++    # While we're waiting, grab the first window ID. This will be the launcher window.
++    until [ $(xdotool search --all --onlyvisible --classname "RuneScape" | wc -l) -eq 2 ]; do
++        [ "$launcherId" ] || launcherId=$(xdotool search --all --onlyvisible --classname "RuneScape")
++        sleep 2
++    done
++
++    # Unmap the launcher window from X. This keeps it running, but hides it from view.
++    # It will close automatically when the game is closed by the user.
++    xdotool windowunmap "$launcherId"
++fi
++
++exit 0

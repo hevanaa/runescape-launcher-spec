@@ -24,6 +24,7 @@ Patch0:         0001-library_path.patch
 # other dependencies
 Requires:       libcurl libGLEW
 Requires:       SDL2 gtk2 libpng12 libvorbis
+Requires:       xdotool
 
 BuildRequires:  desktop-file-utils
 # For _kde4_* macros:
@@ -133,7 +134,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Tue Feb 05 2019 ohan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.11
 - Runescape binary changed by Jagex 2019-01-21
-- Updated curl version
+- Updated curl version. Added xdotool to hide launch window.
 * Sat Nov 10 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.10
 - Runescape binary changed by Jagex 2018-10-31
 * Mon Apr 23 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.9
