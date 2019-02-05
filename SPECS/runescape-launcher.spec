@@ -5,7 +5,7 @@
 %define privatelibdir /opt/runescape-nxt-libs
 Name:           runescape-launcher
 Version:        2.2.4
-Release:        1.10%{?dist}
+Release:        1.11%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
 Summary:        RuneScape Game Client
@@ -89,7 +89,7 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/
 install -Dm 0755 runescape-launcher-%{version}/usr/bin/runescape-launcher %{buildroot}%{_bindir}/runescape-launcher
 
 mkdir -p $RPM_BUILD_ROOT%{privatelibdir}/
-%__cp %{_builddir}/curl-%{curlversion}/lib/.libs/libcurl.so.4.4.0 $RPM_BUILD_ROOT%{privatelibdir}/
+%__cp %{_builddir}/curl-%{curlversion}/lib/.libs/libcurl.so.4.5.0 $RPM_BUILD_ROOT%{privatelibdir}/
 %__cp %{_builddir}/glew-%{glewversion}/lib/libGLEW.so.1.10.0 $RPM_BUILD_ROOT%{privatelibdir}/
 %__cp %{_builddir}/libpng-%{libpngversion}/.libs/libpng12.so.0.54.0 $RPM_BUILD_ROOT%{privatelibdir}/
 chmod 0755 $RPM_BUILD_ROOT%{privatelibdir}/*.so*
@@ -97,7 +97,7 @@ chmod 0755 $RPM_BUILD_ROOT%{privatelibdir}/*.so*
 %post
 if [ $1 -eq 1 ]; then
     touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
-    ln -s %{privatelibdir}/libcurl.so.4.4.0 %{privatelibdir}/libcurl.so.4
+    ln -s %{privatelibdir}/libcurl.so.4.5.0 %{privatelibdir}/libcurl.so.4
     ln -s %{privatelibdir}/libGLEW.so.1.10.0 %{privatelibdir}/libGLEW.so.1.10
     ln -s %{privatelibdir}/libpng12.so.0.54.0 %{privatelibdir}/libpng12.so.0
 fi
@@ -131,6 +131,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{privatelibdir}/*
 
 %changelog
+* Tue Feb 05 2019 ohan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.11
+- Runescape binary changed by Jagex 2019-01-21
+- Updated curl version
 * Sat Nov 10 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.10
 - Runescape binary changed by Jagex 2018-10-31
 * Mon Apr 23 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.9
