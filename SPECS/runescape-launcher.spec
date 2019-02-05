@@ -1,5 +1,5 @@
 %define debug_package %{nil}
-%define curlversion 7.53.1
+%define curlversion 7.58.0
 %define glewversion 1.10.0
 %define libpngversion 1.2.54
 %define privatelibdir /opt/runescape-nxt-libs
