@@ -1,11 +1,11 @@
 %define debug_package %{nil}
 %define curlversion 7.58.0
 %define glewversion 1.10.0
-%define libpngversion 1.2.54
+%define libpngversion 1.2.59
 %define privatelibdir /opt/runescape-nxt-libs
 Name:           runescape-launcher
 Version:        2.2.4
-Release:        1.11%{?dist}
+Release:        1.13%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
 Summary:        RuneScape Game Client
@@ -15,7 +15,7 @@ Source0:        https://content.runescape.com/downloads/ubuntu/pool/non-free/r/r
 # Libcurl needs ssl support. We can't just build older rpms of the libraries.
 Source1:        https://curl.haxx.se/download/curl-%{curlversion}.tar.gz
 Source2:        http://downloads.sourceforge.net/glew/glew-%{glewversion}.tgz
-Source3:        https://downloads.sourceforge.net/project/libpng/libpng12/older-releases/%{libpngversion}/libpng-%{libpngversion}.tar.gz
+Source3:        https://downloads.sourceforge.net/project/libpng/libpng12/%{libpngversion}/libpng-%{libpngversion}.tar.xz
 
 # Patch the client to use also the private libraries
 Patch0:         0001-library_path.patch
@@ -23,7 +23,7 @@ Patch0:         0001-library_path.patch
 # Despite providing separate libcurl and libGLEW, require them for their
 # other dependencies
 Requires:       libcurl libGLEW
-Requires:       SDL2 gtk2 libpng12 libvorbis
+Requires:       SDL2 gtk2 libpng libpng12 libvorbis
 Requires:       xdotool
 
 BuildRequires:  desktop-file-utils
@@ -31,6 +31,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  kde-filesystem
 # for libGLEW
 BuildRequires:  libX11-devel libXext-devel libXi-devel libXmu-devel
+BuildRequires:  libpsl-devel libpng-devel
 BuildRequires:  mesa-libGL-devel libGLU-devel
 # libcurl
 BuildRequires:  openssl-devel
@@ -92,7 +93,7 @@ install -Dm 0755 runescape-launcher-%{version}/usr/bin/runescape-launcher %{buil
 mkdir -p $RPM_BUILD_ROOT%{privatelibdir}/
 %__cp %{_builddir}/curl-%{curlversion}/lib/.libs/libcurl.so.4.5.0 $RPM_BUILD_ROOT%{privatelibdir}/
 %__cp %{_builddir}/glew-%{glewversion}/lib/libGLEW.so.1.10.0 $RPM_BUILD_ROOT%{privatelibdir}/
-%__cp %{_builddir}/libpng-%{libpngversion}/.libs/libpng12.so.0.54.0 $RPM_BUILD_ROOT%{privatelibdir}/
+%__cp %{_builddir}/libpng-%{libpngversion}/.libs/libpng12.so.0.59.0 $RPM_BUILD_ROOT%{privatelibdir}/
 chmod 0755 $RPM_BUILD_ROOT%{privatelibdir}/*.so*
 
 %post
@@ -100,7 +101,7 @@ if [ $1 -eq 1 ]; then
     touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
     ln -s %{privatelibdir}/libcurl.so.4.5.0 %{privatelibdir}/libcurl.so.4
     ln -s %{privatelibdir}/libGLEW.so.1.10.0 %{privatelibdir}/libGLEW.so.1.10
-    ln -s %{privatelibdir}/libpng12.so.0.54.0 %{privatelibdir}/libpng12.so.0
+    ln -s %{privatelibdir}/libpng12.so.0.59.0 %{privatelibdir}/libpng12.so.0
 fi
 
 %postun
@@ -132,7 +133,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{privatelibdir}/*
 
 %changelog
-* Tue Feb 05 2019 ohan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.11
+* Tue Jun 11 2019 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.13
+- Runescape binary changed by Jagex 2019-05-30
+- Updated libpng version
+* Mon Apr 29 2019 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.12
+- Runescape binary changed by Jagex 2019-04-17
+* Tue Feb 05 2019 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.11
 - Runescape binary changed by Jagex 2019-01-21
 - Updated curl version. Added xdotool to hide launch window.
 * Sat Nov 10 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.10
