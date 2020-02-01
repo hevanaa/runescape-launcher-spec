@@ -1,13 +1,18 @@
---- runescape-launcher-2.2.4/usr/bin/runescape-launcher	2019-02-06 00:29:05.405675193 +0200
-+++ runescape-launcher-2.2.4/usr/bin/runescape-launcher_patched	2019-02-06 00:28:17.515913219 +0200
-@@ -7,8 +7,24 @@
+--- runescape-launcher-2.2.6/usr/bin/runescape-launcher	2020-02-01 12:41:33.669347958 +0200
++++ runescape-launcher-2.2.6/usr/bin/runescape-launcher_patched	2020-02-01 12:41:15.055432818 +0200
+@@ -7,12 +7,28 @@
      shift
  fi
  
 +export LD_LIBRARY_PATH="$LD_LIBRARY_PATH${LD_LIBRARY_PATH:+:}/opt/runescape-nxt-libs/"
  export PULSE_PROP_OVERRIDE="application.name='RuneScape' application.icon_name='runescape' media.role='game'"
  export SDL_VIDEO_X11_WMCLASS="RuneScape"
- export MESA_GL_VERSION_OVERRIDE=3.0
+-export PULSE_LATENCY_MSEC=100
++export PULSE_LATENCY_MSEC=200
+ 
+ # Some older graphics drivers may require this to be uncommented, but it will restrict the available graphics settings and performance.
+ #export MESA_GL_VERSION_OVERRIDE=3.0
+ 
  unset XMODIFIERS
 -/usr/share/games/runescape-launcher/runescape --configURI $configURI $@
 +/usr/share/games/runescape-launcher/runescape --configURI $configURI "$@" &
