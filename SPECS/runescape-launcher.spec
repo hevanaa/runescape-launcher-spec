@@ -3,9 +3,10 @@
 %define glewversion 1.10.0
 %define libpngversion 1.2.59
 %define privatelibdir /opt/runescape-nxt-libs
+
 Name:           runescape-launcher
-Version:        2.2.6
-Release:        1.15%{?dist}
+Version:        2.2.7
+Release:        2%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
 Summary:        RuneScape Game Client
@@ -133,39 +134,60 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{privatelibdir}/*
 
 %changelog
+* Fri Jun 5 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.7-2
+- Updated runescape.deb
+
+* Wed Apr 29 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.6-1.16
+- Runescape deb version 2.2.7
+
 * Sat Feb 01 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.6-1.15
 - Runescape binary changed by Jagex 2020-01-03
+
 * Thu Oct 31 2019 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.14
 - Runescape binary changed by Jagex 2019-10-07
+
 * Tue Jun 11 2019 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.13
 - Runescape binary changed by Jagex 2019-05-30
 - Updated libpng version
+
 * Mon Apr 29 2019 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.12
 - Runescape binary changed by Jagex 2019-04-17
+
 * Tue Feb 05 2019 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.11
 - Runescape binary changed by Jagex 2019-01-21
 - Updated curl version. Added xdotool to hide launch window.
+
 * Sat Nov 10 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.10
 - Runescape binary changed by Jagex 2018-10-31
+
 * Mon Apr 23 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.9
 - Runescape binary changed by Jagex 2018-04-19
+
 * Thu Mar 01 2018 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.8
 - Runescape binary changed by Jagex 2018-02-16
 - Added libpng12
+
 * Sat Dec 30 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.7
 - Runescape binary changed by Jagex 2017-11-24
+
 * Sat Nov 25 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.6
 - Runescape binary changed by Jagex 2017-11-14
+
 * Sat Oct 28 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.5
 - Runescape binary changed by Jagex 2017-10-13
+
 * Tue Oct 03 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.4
 - Runescape binary changed by Jagex 2017-09-19
+
 * Sat Sep 23 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.3
 - Runescape binary changed by Jagex 2017-09-12
+
 * Sat Sep 16 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.2
 - Runescape binary changed by Jagex 2017-09-01 for unknown reasons
+
 * Wed Aug 09 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.1
 - Removed webkitgtk, added gtk2
+
 * Tue Aug 08 2017 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.4-1.0
 - First Fedora package created from Ubuntu package
 - Runescape version 2.2.4 release date Jul 10 2017
