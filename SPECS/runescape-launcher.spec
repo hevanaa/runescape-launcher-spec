@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           runescape-launcher
-Version:        2.2.8
+Version:        2.2.9
 Release:        1%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
@@ -77,8 +77,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Apr 29 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.9-1
+- Updated runescape.deb to 2.2.9
+
 * Mon Dec 7 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.8-1
-- 2.2.8 Updated runescape.deb
+- Updated runescape.deb to 2.2.8
 
 * Tue Oct 13 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.7-4
 - Updated runescape.deb
