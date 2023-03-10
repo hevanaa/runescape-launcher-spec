@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           runescape-launcher
-Version:        2.2.9
+Version:        2.2.11
 Release:        1%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
@@ -38,6 +38,7 @@ sed -i 's|PULSE_LATENCY_MSEC=100|PULSE_LATENCY_MSEC=200|' usr/bin/runescape-laun
 %install
 install -Dm 0644 runescape-launcher-%{version}/usr/share/doc/runescape-launcher/copyright %{buildroot}%{_docdir}/runescape-launcher/copyright
 install -Dm 0644 runescape-launcher-%{version}/usr/share/doc/runescape-launcher/changelog.gz %{buildroot}%{_docdir}/runescape-launcher/changelog.gz
+export QA_RPATHS=0x0002
 install -Dm 0755 runescape-launcher-%{version}/usr/share/games/runescape-launcher/runescape %{buildroot}%{_datadir}/games/runescape-launcher/runescape
 install -Dm 0644 runescape-launcher-%{version}/usr/share/games/runescape-launcher/runescape.png %{buildroot}%{_datadir}/games/runescape-launcher/runescape.png
 desktop-file-install runescape-launcher-%{version}/usr/share/applications/runescape-launcher.desktop
@@ -77,7 +78,22 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
-* Wed Apr 29 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.9-1
+* Fri Mar 10 2023 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-1
+- Updated runescape.deb to 2.2.11
+
+* Sat Nov 12 2022 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.10-1
+- Updated runescape.deb to 2.2.10
+
+* Sat Mar 26 2022 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.9-4
+- Updated runescape.deb to 2.2.9
+
+* Wed Nov 10 2021 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.9-3
+- Updated runescape.deb to 2.2.9
+
+* Thu Jul 29 2021 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.9-2
+- Updated runescape.deb to 2.2.9
+
+* Thu Apr 29 2021 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.9-1
 - Updated runescape.deb to 2.2.9
 
 * Mon Dec 7 2020 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.8-1
