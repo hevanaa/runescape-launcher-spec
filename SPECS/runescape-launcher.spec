@@ -2,20 +2,20 @@
 
 Name:           runescape-launcher
 Version:        2.2.11
-Release:        1%{?dist}
+Release:        8%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
 Summary:        RuneScape Game Client
 Url:            https://www.runescape.com/
 Source0:        https://content.runescape.com/downloads/ubuntu/pool/non-free/r/runescape-launcher/runescape-launcher_%{version}_amd64.deb
 
-Requires:       libcurl libGLEW
+Requires:       libcurl libGLEW libnotify
 Requires:       SDL2 gtk2 libpng libvorbis
 Requires:       xdotool
 
 BuildRequires:  desktop-file-utils
 # For _kde4_* macros:
-BuildRequires:  kde-filesystem
+BuildRequires:  kde4-filesystem
 
 %description
 RuneScape is a massively multiplayer online role-playing game created by Jagex
@@ -78,6 +78,30 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Oct 30 2025 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-8
+- Rebuilt for Fedora 43
+- Updated runescape.deb
+
+* Fri Apr 18 2025 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-7
+- Rebuilt for Fedora 42
+- Updated runescape.deb
+
+* Tue Oct 29 2024 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-6
+- Rebuilt for Fedora 41
+- Updated runescape.deb
+
+* Thu Apr 25 2024 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-5
+- Updated runescape.deb
+
+* Tue Nov 7 2023 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-4
+- Updated runescape.deb
+
+* Fri Aug 11 2023 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-3
+- Updated runescape.deb
+
+* Tue Apr 18 2023 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-2
+- Rebuilt for Fedora 38
+
 * Fri Mar 10 2023 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-1
 - Updated runescape.deb to 2.2.11
 
