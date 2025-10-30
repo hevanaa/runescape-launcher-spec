@@ -2,7 +2,7 @@
 
 Name:           runescape-launcher
 Version:        2.2.11
-Release:        8%{?dist}
+Release:        9%{?dist}
 ExclusiveArch:  x86_64
 License:        Runescape
 Summary:        RuneScape Game Client
@@ -15,7 +15,7 @@ Requires:       xdotool
 
 BuildRequires:  desktop-file-utils
 # For _kde4_* macros:
-BuildRequires:  kde4-filesystem
+BuildRequires:  kde4-filesystem bsdtar
 
 %description
 RuneScape is a massively multiplayer online role-playing game created by Jagex
@@ -29,9 +29,9 @@ cd %{_builddir}
 rm -rf runescape-launcher-%{version}
 mkdir runescape-launcher-%{version}
 cd runescape-launcher-%{version}
-ar x %{SOURCE0}
+bsdtar xf %{SOURCE0}
 tar xvf data.tar.xz
-sed -i 's|PULSE_LATENCY_MSEC=100|PULSE_LATENCY_MSEC=200|' usr/bin/runescape-launcher
+sed -i 's|PULSE_LATENCY_MSEC=100|PULSE_LATENCY_MSEC=200\nexport SDL_VIDEODRIVER=x11|' usr/bin/runescape-launcher
 
 %build
 
@@ -78,6 +78,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Oct 30 2025 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-9
+- Force X11 on wayland
+
 * Thu Oct 30 2025 Johan Heikkila <johan.heikkila@gmail.com> - 2.2.11-8
 - Rebuilt for Fedora 43
 - Updated runescape.deb
